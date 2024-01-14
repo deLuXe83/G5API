@@ -1086,7 +1086,8 @@ router.get("/:match_id/config", async (req, res, next) => {
         matchInfo[0].min_spectators_to_ready !== null
           ? matchInfo[0].min_spectators_to_ready
           : 0,
-      wingman: matchInfo[0]?.wingman == 1 ? true : false
+      wingman: matchInfo[0]?.wingman == 1 ? true : false,
+      clinch_series: matchInfo[0]?.clinch_series == 1 ? true : false
     };
     matchJSON.num_maps = parseInt(matchInfo[0].max_maps);
     if (matchJSON.skip_veto && matchInfo[0].map_sides)
@@ -1214,7 +1215,8 @@ router.post("/", Utils.ensureAuthenticated, async (req, res, next) => {
           ? req.body[0].min_spectators_to_ready
           : 0,
       map_sides: req.body[0].map_sides !== null ? req.body[0].map_sides : null,
-      wingman: req.body[0]?.wingman 
+      wingman: req.body[0]?.wingman, 
+      clinch_series: req.body[0]?.clinch_series 
     };
     let sql = "INSERT INTO `match` SET ?";
     let cvarSql =
@@ -1424,7 +1426,8 @@ router.put("/", Utils.ensureAuthenticated, async (req, res, next) => {
             ? req.body[0].min_spectators_to_ready
             : 0,
         map_sides: req.body[0].map_sides !== null ? req.body[0].map_sides : null,
-        wingman: req.body[0]?.wingman
+        wingman: req.body[0]?.wingman,
+        clinch_series: req.body[0]?.clinch_series
       };
       // Remove any values that may not be updated.
       updateStmt = await db.buildUpdateStatement(updateStmt);
