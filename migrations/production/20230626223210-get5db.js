@@ -27,3 +27,16 @@ exports.down = function (db, callback) {
 exports._meta = {
   version: 25
 };
+
+exports.up = function (db, callback) {
+  return db.runSql(
+    "ALTER TABLE `match` ADD COLUMN clinch_series tinyint(1) DEFAULT 0 AFTER wingman;"
+  );
+};
+
+exports.down = function (db, callback) {
+  return db.removeColumn("match", "clinch_series");
+};
+exports._meta = {
+  version: 25
+};
