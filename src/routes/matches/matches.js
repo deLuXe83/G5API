@@ -1088,7 +1088,7 @@ router.get("/:match_id/config", async (req, res, next) => {
           : 0,
       wingman: matchInfo[0]?.wingman == 1 ? true : false,
       clinch_series: matchInfo[0]?.clinch_series == 1 ? true : false,
-      veto_mode: "test"
+      veto_mode: matchInfo[0]?.veto_mode
 
     };
     matchJSON.num_maps = parseInt(matchInfo[0].max_maps);
@@ -1219,7 +1219,7 @@ router.post("/", Utils.ensureAuthenticated, async (req, res, next) => {
       map_sides: req.body[0].map_sides !== null ? req.body[0].map_sides : null,
       wingman: req.body[0]?.wingman, 
       clinch_series: req.body[0]?.clinch_series,
-      veto_mode: "test"
+      veto_mode: req.body[0]?.veto_mode
 
     };
     let sql = "INSERT INTO `match` SET ?";
@@ -1432,7 +1432,7 @@ router.put("/", Utils.ensureAuthenticated, async (req, res, next) => {
         map_sides: req.body[0].map_sides !== null ? req.body[0].map_sides : null,
         wingman: req.body[0]?.wingman,
         clinch_series: req.body[0]?.clinch_series,
-        veto_mode: "test"
+        veto_mode: req.body[0]?.veto_mode
 
       };
       // Remove any values that may not be updated.
